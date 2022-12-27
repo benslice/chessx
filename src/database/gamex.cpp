@@ -1511,9 +1511,9 @@ void GameX::moveToLineEnd()
     }
 }
 
-int GameX::forward(int count)
+int GameX::forward(int count, bool randomVariation)
 {
-    int moved = m_moves.forward(count);
+    int moved = m_moves.forward(count, randomVariation);
     if (moved)
     {
         indicateAnnotationsOnBoard();

@@ -14,6 +14,7 @@
 #include "gamecursor.h"
 #include "settings.h"
 #include "tags.h"
+#include <iostream>
 
 using namespace chessx;
 
@@ -380,14 +381,34 @@ bool GameCursor::moveToId(MoveId moveId, QString* algebraicMoveList)
     return true;
 }
 
-int GameCursor::forward(int count)
+int GameCursor::forward(int count, bool randomVariation)
 {
     int moved = 0;
+    int varCount = 0;
     while ((m_nodes[m_currentNode].nextNode != NO_MOVE) && (moved < count))
     {
-        m_currentNode = m_nodes[m_currentNode].nextNode;
-        ++moved;
+        varCount = variationCount(m_currentNode);
+        if (!randomVariation || varCount == 0)
+        {
+            m_currentNode = m_nodes[m_currentNode].nextNode;
+        }
+        else
+        {
+            int selection = rand() % (variationCount(m_currentNode) + 1);
+            std::cout << "selection: "  <<  selection << '/' << varCount << ':';
+            if (selection == varCount) // mainline, not variation
+            {
+                std::cout << "main " << '\n';
+                m_currentNode = m_nodes[m_currentNode].nextNode;
+            } 
+            else 
+            {
+                std::cout << "variation " << '\n';
+                m_currentNode = m_nodes[m_currentNode].variations[selection];
+            }
+        }
 
+        ++moved;
         m_currentBoard->doMove(m_nodes[m_currentNode].move);
     }
     return moved;

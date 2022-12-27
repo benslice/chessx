@@ -65,6 +65,8 @@
 #include "version.h"
 
 #include <time.h>
+#include <stdio.h>
+#include <iostream>
 
 #include <QtGui>
 #include <QAction>
@@ -809,9 +811,14 @@ void MainWindow::slotBoardStoredMove()
 
 void MainWindow::triggerBoardMove()
 {
+    
+    // BJV MainWindow::triggerBoardMove called when I make a move on the board
+    // BJV MainWindow::triggerBoardMove in training mode, only when I make a valid
+    // BJV MainWindow::triggerBoardMove move, and the board needs to respond
     if (!game().atLineEnd())
     {
-        game().forward();
+        std::cout << "MainWindow::triggerBoardMove()" << '\n'; 
+        game().forward(1, true);
         Move m = game().move();
         m_currentFrom = m.from();
         m_currentTo = m.to();

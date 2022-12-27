@@ -213,7 +213,7 @@ public :
 
     // ***** Moving through game *****
     bool dbMoveToId(MoveId moveId, QString* algebraicMoveList=nullptr) { return m_moves.moveToId(moveId, algebraicMoveList); }
-    int forward(int count = 1);
+    int forward(int count = 1, bool randomVariation = false);
     int backward(int count = 1);
     void moveToStart();
     void moveToEnd();

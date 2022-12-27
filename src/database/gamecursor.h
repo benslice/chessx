@@ -135,7 +135,7 @@ public:
     /** Moves to the position corresponding to the given move id */
     bool moveToId(MoveId moveId, QString* algebraicMoveList=nullptr);
     /** Move forward the given number of moves, returns actual number of moves made */
-    int forward(int count = 1);
+    int forward(int count = 1, bool randomVariation = false);
     /** Move back the given number of moves, returns actual number of moves undone */
     int backward(int count = 1);
     /** Move to the end of current variation */
